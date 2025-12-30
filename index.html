@@ -5,19 +5,20 @@
 <title>Siya Art Homes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #f6f2ee;
+  background: linear-gradient(180deg, #f7f3ef, #efe7df);
   color: #3b2f2f;
 }
 
 header {
   text-align: center;
-  padding: 40px 20px;
+  padding: 50px 20px 30px;
 }
 
 header img {
@@ -26,85 +27,225 @@ header img {
 
 h1 {
   font-family: 'Playfair Display', serif;
+  font-size: 38px;
   margin: 15px 0 5px;
 }
 
 .tagline {
   font-size: 16px;
-  opacity: 0.8;
+  opacity: 0.85;
+  margin-bottom: 20px;
 }
 
-.icons a {
-  margin: 0 10px;
-  font-size: 22px;
-  text-decoration: none;
-  color: #3b2f2f;
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 15px;
+}
+
+.social-icons img {
+  width: 28px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.15);
 }
 
 .section {
-  padding: 40px 20px;
   max-width: 1100px;
+  margin: auto;
+  padding: 50px 20px;
+}
+
+.about {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 800px;
   margin: auto;
 }
 
+.about span {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 22px;
 }
 
-.gallery img {
+.gallery-item {
+  overflow: hidden;
+  border-radius: 14px;
+  height: 320px;
+  background: #ddd;
+}
+
+.gallery-item img {
   width: 100%;
-  border-radius: 12px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.12);
+}
+
+/* Contact Section */
+.contact {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.contact p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 28px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
 }
 
 footer {
   text-align: center;
   padding: 30px;
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-  <img src="logo.png" alt="Siya Art Homes">
+  <img src="logo.png" alt="Siya Art Homes Logo">
   <h1>Siya Art Homes</h1>
   <div class="tagline">Designing Spaces, Defining Art</div>
 
-  <div class="icons">
-    <a href="mailto:siyaarthomes@gmail.com">📧</a>
-    <a href="https://instagram.com/siya.art.homes/" target="_blank">📸</a>
-    <a href="https://facebook.com/YOURFACEBOOK" target="_blank">📘</a>
+  <!-- OFFICIAL ICONS -->
+  <div class="social-icons">
+    <a href="mailto:siyaarthomes@gmail.com">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg">
+    </a>
+    <a href="https://instagram.com/siya.art.homes/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+    </a>
+    <a href="https://facebook.com/profile.php?id=61585696507284" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg">
+    </a>
   </div>
 </header>
 
+<!-- ABOUT -->
+<div class="section about">
+  <span>Siya Art Homes</span> is a premium home furnishings & décor studio
+  specializing in elegant curtains, stylish blinds, artistic wallpapers,
+  and thoughtfully curated décor pieces.  
+  <br><br>
+  We believe every home tells a story — our role is to design spaces that feel
+  warm, refined, and beautifully personal.
+</div>
+
+<!-- COLLECTION -->
 <div class="section">
   <h2>Our Collection</h2>
   <div class="gallery">
-    <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg">
-    <img src="https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg">
-    <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg">
-    <img src="https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg">
-    <img src="https://images.pexels.com/photos/35382792/pexels-photo-35382792.jpeg">
-    <img src="https://images.pexels.com/photos/13242404/pexels-photo-13242404.jpeg">
-    <img src="https://images.pexels.com/photos/5425123/pexels-photo-5425123.jpeg">
-    <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg">
-    <img src="https://images.pexels.com/photos/3337209/pexels-photo-3337209.jpeg">
-    <img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg">
-    <img src="https://images.pexels.com/photos/7614610/pexels-photo-7614610.jpeg">
-    <img src="https://images.pexels.com/photos/35433012/pexels-photo-35433012.jpeg">
-    <img src="https://images.pexels.com/photos/35373118/pexels-photo-35373118.jpeg">
-    <img src="https://images.pexels.com/photos/7546769/pexels-photo-7546769.jpeg">
-    <img src="https://images.pexels.com/photos/31287149/pexels-photo-31287149.jpeg">
-    <img src="https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg">
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg">
+    </div>
+	<div class="gallery-item">
+      <img src="https://images.pexels.com/photos/35382792/pexels-photo-35382792.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/13242404/pexels-photo-13242404.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/5425123/pexels-photo-5425123.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg">
+    </div>
+	<div class="gallery-item">
+      <img src="https://images.pexels.com/photos/3337209/pexels-photo-3337209.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/7614610/pexels-photo-7614610.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/35433012/pexels-photo-35433012.jpeg">
+    </div>
+	<div class="gallery-item">
+      <img src="https://images.pexels.com/photos/35373118/pexels-photo-35373118.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/7546769/pexels-photo-7546769.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/31287149/pexels-photo-31287149.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg">
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section">
+  <div class="contact">
+    <h2>Contact Us</h2>
+    <p>📍 India</p>
+    <p>📞 95059 49445</p>
+    <p>📧 siyaarthomes@gmail.com</p>
+
+    <a class="whatsapp-btn" href="https://wa.me/919505949445" target="_blank">
+      Chat on WhatsApp
+    </a>
   </div>
 </div>
 
 <footer>
-  © 2025 Siya Art Homes | Premium Furnishings & Décor
+  © 2025 Siya Art Homes • Premium Furnishings & Décor
 </footer>
 
 </body>
