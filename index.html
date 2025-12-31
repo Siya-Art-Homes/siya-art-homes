@@ -173,12 +173,14 @@
             transform: translateY(-3px);
         }
         
-        /* ===== HERO ===== */
+        /* ===== HERO - FIXED FOR MOBILE ===== */
         .hero {
             background: linear-gradient(rgba(245, 241, 235, 0.9), rgba(245, 241, 235, 0.9)), url('https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
             padding: 120px 0;
             text-align: center;
             margin-top: 0;
+            /* Ensure hero content is below header */
+            position: relative;
         }
         .hero h1 {
             font-size: 3rem;
@@ -439,7 +441,7 @@
             color: #999;
         }
         
-        /* ===== RESPONSIVE DESIGN ===== */
+        /* ===== RESPONSIVE DESIGN - FIXED FOR MOBILE ===== */
         
         /* Tablet (768px - 1024px) */
         @media (max-width: 1024px) {
@@ -463,11 +465,36 @@
             }
         }
         
-        /* Mobile (480px - 767px) */
+        /* Mobile (480px - 767px) - FIXED HERO SECTION */
         @media (max-width: 767px) {
+            /* Add margin to body to prevent hero from hiding behind header */
+            body {
+                padding-top: 80px; /* This creates space for fixed header */
+            }
+            
             section {
                 padding: 60px 0;
             }
+            
+            /* Hero section mobile fixes */
+            .hero {
+                padding: 80px 0 60px; /* Adjusted padding for mobile */
+                margin-top: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                margin-top: 0;
+                padding-top: 0;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 15px;
+                margin-bottom: 25px;
+            }
+            
+            /* Header adjustments for mobile */
             .header-container {
                 flex-wrap: wrap;
             }
@@ -491,16 +518,8 @@
             .logo-text {
                 font-size: 24px;
             }
-            .hero {
-                padding: 80px 0;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1rem;
-                padding: 0 15px;
-            }
+            
+            /* Form adjustments */
             #consultationForm {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -511,10 +530,14 @@
             .form-box h2 {
                 font-size: 1.7rem;
             }
+            
+            /* Services grid */
             .services-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
+            
+            /* Gallery grid */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
@@ -522,24 +545,34 @@
             .gallery-item {
                 height: 220px;
             }
+            
+            /* Reviews */
             .reviews-slider {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
+            
+            /* Instagram grid */
             .insta-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+            
+            /* Contact CTA */
             .contact-cta {
                 padding: 40px 25px;
             }
             .contact-cta h2 {
                 font-size: 1.7rem;
             }
+            
+            /* Footer */
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 30px;
                 text-align: center;
             }
+            
+            /* Show header button */
             .show-header-btn {
                 top: 15px;
                 right: 15px;
@@ -550,18 +583,38 @@
         
         /* Small Mobile (< 480px) */
         @media (max-width: 480px) {
+            body {
+                padding-top: 70px; /* Smaller padding for very small screens */
+            }
+            
+            .hero {
+                padding: 70px 0 50px;
+            }
+            
             .hero h1 {
                 font-size: 1.8rem;
+                padding: 0 10px;
             }
+            
+            .hero .btn {
+                padding: 10px 24px;
+                font-size: 0.95rem;
+            }
+            
+            /* Single column gallery */
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
             .gallery-item {
                 height: 250px;
             }
+            
+            /* Instagram grid */
             .insta-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            /* Contact buttons stack vertically */
             .contact-cta .btn {
                 width: 100%;
                 margin-bottom: 10px;
@@ -570,6 +623,8 @@
                 flex-direction: column;
                 width: 100%;
             }
+            
+            /* Smaller show header button */
             .show-header-btn {
                 top: 10px;
                 right: 10px;
@@ -615,7 +670,7 @@
         <i class="fas fa-chevron-down"></i>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - NOW VISIBLE ON MOBILE -->
     <section class="hero">
         <div class="container">
             <h1>Transform Your Home with Elegance</h1>
@@ -784,7 +839,7 @@
                     <a href="https://wa.me/919505949445" class="btn btn-whatsapp" target="_blank">
                         <i class="fab fa-whatsapp"></i> Chat on WhatsApp
                     </a>
-                    <a href="mailto:siyaarthomes@gmail.com" class="btn" style="background-color: transparent; border: 2px solid white;">
+                    <a href="mailto:arthomesliving09@gmail.com" class="btn" style="background-color: transparent; border: 2px solid white;">
                         <i class="fas fa-envelope"></i> Email Us
                     </a>
                 </div>
@@ -912,7 +967,7 @@
             // 2. Prepare email link as a backup
             const emailSubject = `New Consultation Request from ${name}`;
             const emailBody = formattedMessage.replace(/%0A/g, '\n').replace(/\*/g, '');
-            const mailtoLink = `mailto:siyaarthomes@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            const mailtoLink = `mailto:arthomesliving09@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
             // Optional: Inform user about email option
             setTimeout(() => {
