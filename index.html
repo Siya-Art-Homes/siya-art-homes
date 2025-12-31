@@ -9,19 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --color-primary: #9C7C5C; /* Warm, elegant brown */
-            --color-secondary: #F5F1EB; /* Cozy cream */
-            --color-dark: #2A241D; /* Deep charcoal */
+            --color-primary: #9C7C5C;
+            --color-secondary: #F5F1EB;
+            --color-dark: #2A241D;
             --color-light: #FFFFFF;
-            --color-accent: #D4B896; /* Light beige accent */
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --color-accent: #D4B896;
+            --shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             --border-radius: 12px;
-            --transition: all 0.3s ease;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -48,7 +51,7 @@
         .text-center { text-align: center; }
         .btn {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 12px 28px;
             background-color: var(--color-primary);
             color: white;
             border: none;
@@ -71,31 +74,49 @@
         .btn-whatsapp:hover {
             background-color: #128C7E;
         }
-        /* ===== HEADER ===== */
+        
+        /* ===== HEADER - Disappearing on scroll ===== */
         header {
             background-color: var(--color-light);
             box-shadow: var(--shadow);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            padding: 10px 0;
+            padding: 15px 0;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            transform: translateY(0);
+            opacity: 1;
         }
-		header img {
-  width: 80px;
-}
+        header.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 70px;
+            height: auto;
+            transition: var(--transition);
+        }
+        .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: var(--color-primary);
             text-decoration: none;
         }
-        .logo span {
+        .logo-text span {
             color: var(--color-dark);
         }
         .social-header {
@@ -112,30 +133,68 @@
             color: var(--color-primary);
             transform: scale(1.1);
         }
-        .header-cta a {
-            margin-left: 10px;
+        .header-cta {
+            display: flex;
+            gap: 10px;
         }
+        .header-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Show header button - appears when header is hidden */
+        .show-header-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--color-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(156, 124, 92, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+        }
+        .show-header-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .show-header-btn:hover {
+            background-color: var(--color-dark);
+            transform: translateY(-3px);
+        }
+        
         /* ===== HERO ===== */
         .hero {
             background: linear-gradient(rgba(245, 241, 235, 0.9), rgba(245, 241, 235, 0.9)), url('https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
             padding: 120px 0;
             text-align: center;
+            margin-top: 0;
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             color: var(--color-dark);
         }
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto 30px;
             color: #555;
         }
+        
         /* ===== BOOKING FORM ===== */
         .booking-section {
             padding-top: 40px;
-            margin-top: -60px;
         }
         .form-box {
             background-color: var(--color-light);
@@ -146,8 +205,8 @@
             margin: 0 auto;
         }
         .form-box h2 {
-            margin-bottom: 30px;
-            font-size: 2.2rem;
+            margin-bottom: 25px;
+            font-size: 2rem;
         }
         #consultationForm {
             display: grid;
@@ -162,18 +221,19 @@
             grid-column: 1 / -1;
         }
         #consultationForm label {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 500;
             color: var(--color-dark);
+            font-size: 0.95rem;
         }
         #consultationForm input,
         #consultationForm select,
         #consultationForm textarea {
-            padding: 14px;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: var(--transition);
         }
         #consultationForm input:focus,
@@ -185,15 +245,17 @@
         }
         #consultationForm button[type="submit"] {
             grid-column: 1 / -1;
-            padding: 16px;
-            font-size: 1.1rem;
+            padding: 15px;
+            font-size: 1rem;
+            margin-top: 10px;
         }
+        
         /* ===== SERVICES ===== */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
         }
         .service-card {
             background: var(--color-light);
@@ -205,26 +267,32 @@
             border-top: 4px solid var(--color-accent);
         }
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
         .service-icon {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--color-primary);
-            margin-bottom: 20px;
-        }
-        .service-card h3 {
             margin-bottom: 15px;
         }
-        /* ===== GALLERY / PORTFOLIO ===== */
+        .service-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        /* ===== GALLERY ===== */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
         .gallery-item {
-            height: 300px;
+            height: 280px;
             border-radius: var(--border-radius);
             overflow: hidden;
             position: relative;
@@ -238,15 +306,16 @@
         .gallery-item:hover img {
             transform: scale(1.05);
         }
+        
         /* ===== REVIEWS ===== */
         .reviews-section {
             background-color: var(--color-light);
         }
         .reviews-slider {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
         }
         .review-card {
             background: var(--color-secondary);
@@ -258,6 +327,7 @@
             font-style: italic;
             margin-bottom: 20px;
             color: #555;
+            line-height: 1.7;
         }
         .reviewer {
             display: flex;
@@ -266,13 +336,19 @@
         .reviewer-name {
             font-weight: 600;
             color: var(--color-dark);
+            font-size: 1.1rem;
         }
+        .reviewer div:last-child {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
         /* ===== INSTAGRAM FEED ===== */
         .insta-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             gap: 10px;
-            margin-top: 30px;
+            margin-top: 25px;
         }
         .insta-item {
             aspect-ratio: 1 / 1;
@@ -288,6 +364,7 @@
         .insta-item:hover img {
             transform: scale(1.08);
         }
+        
         /* ===== CONTACT CTA ===== */
         .contact-cta {
             background: linear-gradient(to right, var(--color-primary), var(--color-dark));
@@ -299,15 +376,18 @@
         .contact-cta h2 {
             color: white;
             margin-bottom: 20px;
+            font-size: 2rem;
         }
         .contact-cta p {
             margin-bottom: 30px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             opacity: 0.9;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
+        
         /* ===== FOOTER ===== */
         footer {
             background-color: var(--color-dark);
@@ -316,23 +396,24 @@
         }
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 40px;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
         .footer-logo {
-            font-size: 28px;
+            font-size: 26px;
             color: white;
             margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
         }
         .footer-heading {
             color: white;
             margin-bottom: 20px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         .footer-social {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             margin-top: 15px;
         }
         .footer-social a {
@@ -357,44 +438,182 @@
             font-size: 0.9rem;
             color: #999;
         }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .header-container { flex-direction: column; gap: 15px; }
-            .social-header { order: 2; }
-            #consultationForm { grid-template-columns: 1fr; }
-            .insta-grid { grid-template-columns: repeat(3, 1fr); }
-            .contact-cta { padding: 40px 20px; }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        
+        /* Tablet (768px - 1024px) */
+        @media (max-width: 1024px) {
+            section {
+                padding: 70px 0;
+            }
+            .hero {
+                padding: 100px 0;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .form-box {
+                padding: 35px;
+            }
+            .insta-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .contact-cta {
+                padding: 50px 40px;
+            }
+        }
+        
+        /* Mobile (480px - 767px) */
+        @media (max-width: 767px) {
+            section {
+                padding: 60px 0;
+            }
+            .header-container {
+                flex-wrap: wrap;
+            }
+            .logo-container {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            .social-header {
+                order: 2;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .header-cta {
+                order: 3;
+                justify-content: center;
+                width: 100%;
+            }
+            .logo-text {
+                font-size: 24px;
+            }
+            .hero {
+                padding: 80px 0;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            #consultationForm {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .form-box {
+                padding: 30px 20px;
+            }
+            .form-box h2 {
+                font-size: 1.7rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .gallery-item {
+                height: 220px;
+            }
+            .reviews-slider {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .contact-cta {
+                padding: 40px 25px;
+            }
+            .contact-cta h2 {
+                font-size: 1.7rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+            .show-header-btn {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        /* Small Mobile (< 480px) */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                height: 250px;
+            }
+            .insta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .contact-cta .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .contact-cta div {
+                flex-direction: column;
+                width: 100%;
+            }
+            .show-header-btn {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="mainHeader">
         <div class="container header-container">
-		    <a><img src="logo.png" class="logo"></a>  
-            <a href="#" class="logo">Siya <span>Art Homes</span></a>
+            <div class="logo-container">
+                <img src="logo.png" class="logo-img" alt="Siya Art Homes Logo">
+                <a href="#" class="logo-text">Siya <span>Art Homes</span></a>
+            </div>
             <div class="social-header">
-                <a href="mailto:siyaarthomes@gmail.com" class="social-icon" title="Email">
+                <a href="mailto:arthomesliving09@gmail.com" class="social-icon" title="Email">
                     <i class="fas fa-envelope"></i>
                 </a>
-                <a href="https://instagram.com/siyaarthomes" target="_blank" class="social-icon" title="Instagram">
+                <a href="https://instagram.com/siya.art.homes/" target="_blank" class="social-icon" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://facebook.com/siyaarthomes" target="_blank" class="social-icon" title="Facebook">
+                <a href="https://facebook.com/profile.php?id=61585639255230" target="_blank" class="social-icon" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
             </div>
             <div class="header-cta">
-                <a href="tel:9505949445" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">
-                    <i class="fas fa-phone-alt"></i> Call Us
+                <a href="tel:9505949445" class="btn">
+                    <i class="fas fa-phone-alt"></i> Call
                 </a>
-                <a href="https://wa.me/919505949445" class="btn btn-whatsapp" style="padding: 10px 20px; font-size: 0.9rem;" target="_blank">
+                <a href="https://wa.me/919505949445" class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
             </div>
         </div>
     </header>
+
+    <!-- Show Header Button -->
+    <div class="show-header-btn" id="showHeaderBtn">
+        <i class="fas fa-chevron-down"></i>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -410,7 +629,7 @@
         <div class="container">
             <div class="form-box">
                 <h2 class="text-center">Schedule Your Free Home Visit</h2>
-                <p class="text-center" style="margin-bottom:30px; color:#666;">Fill out the form below and our design expert will contact you to arrange a convenient time.</p>
+                <p class="text-center" style="margin-bottom:25px; color:#666;">Fill out the form below and our design expert will contact you to arrange a convenient time.</p>
                 <form id="consultationForm">
                     <div class="form-group">
                         <label for="name">Full Name *</label>
@@ -457,7 +676,7 @@
     <section>
         <div class="container">
             <h2 class="text-center">Our Premium Services</h2>
-            <p class="text-center" style="max-width:700px; margin:0 auto 20px; color:#666;">From measurement to installation, we provide a complete, hassle-free experience.</p>
+            <p class="text-center" style="max-width:700px; margin:0 auto 15px; color:#666;">From measurement to installation, we provide a complete, hassle-free experience.</p>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon"><i class="fas fa-vector-square"></i></div>
@@ -487,14 +706,14 @@
     <section style="background-color: var(--color-light);">
         <div class="container">
             <h2 class="text-center">Our Recent Projects</h2>
-            <p class="text-center" style="max-width:700px; margin:0 auto 20px; color:#666;">A glimpse into homes we've transformed with our craftsmanship.</p>
+            <p class="text-center" style="max-width:700px; margin:0 auto 15px; color:#666;">A glimpse into homes we've transformed with our craftsmanship.</p>
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Luxury Living Room"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Modern Blinds"></div>
                 <div class="gallery-item"><img src="https://images.pexels.com/photos/6186821/pexels-photo-6186821.jpeg" alt="Feature Wall"></div>
                 <div class="gallery-item"><img src="https://images.pexels.com/photos/35355792/pexels-photo-35355792.jpeg" alt="Bedroom Curtains"></div>
-				<div class="gallery-item"><img src="https://images.pexels.com/photos/35433012/pexels-photo-35433012.jpeg" alt="Home articrafts"></div>
-				<div class="gallery-item"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg" alt="Home Blinds & Furniture"></div>
+                <div class="gallery-item"><img src="https://images.pexels.com/photos/35433012/pexels-photo-35433012.jpeg" alt="Home articrafts"></div>
+                <div class="gallery-item"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg" alt="Home Blinds & Furniture"></div>
             </div>
         </div>
     </section>
@@ -503,7 +722,7 @@
     <section class="reviews-section">
         <div class="container">
             <h2 class="text-center">What Our Clients Say</h2>
-            <p class="text-center" style="max-width:700px; margin:0 auto 20px; color:#666;">Hear from homeowners who entrusted us with their space.</p>
+            <p class="text-center" style="max-width:700px; margin:0 auto 15px; color:#666;">Hear from homeowners who entrusted us with their space.</p>
             <div class="reviews-slider">
                 <div class="review-card">
                     <p class="review-text">"Siya Art Homes transformed my entire living room. The quality of the curtains and the precision of installation was beyond my expectations. Highly professional!"</p>
@@ -540,7 +759,7 @@
     <section>
         <div class="container">
             <h2 class="text-center">Follow Our Journey on Instagram</h2>
-            <p class="text-center" style="margin-bottom:20px; color:#666;">@siyaarthomes</p>
+            <p class="text-center" style="margin-bottom:15px; color:#666;">@siyaarthomes</p>
             <div class="insta-grid">
                 <div class="insta-item"><img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Instagram Post 1"></div>
                 <div class="insta-item"><img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Instagram Post 2"></div>
@@ -558,7 +777,7 @@
             <div class="contact-cta">
                 <h2>Ready to Redefine Your Space?</h2>
                 <p>Get in touch with our design consultants today. We offer free measurements, samples, and quotes at your doorstep.</p>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
                     <a href="tel:9505949445" class="btn" style="background-color: white; color: var(--color-dark);">
                         <i class="fas fa-phone-alt"></i> Call: 95059 49445
                     </a>
@@ -581,27 +800,27 @@
                     <div class="footer-logo">Siya Art Homes</div>
                     <p>Designing Spaces, Defining Art. We bring premium furnishings and expert craftsmanship right to your doorstep.</p>
                     <div class="footer-social">
-                        <a href="mailto:siyaarthomes@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="https://instagram.com/siyaarthomes" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://facebook.com/siyaarthomes" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="mailto:arthomesliving09@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://instagram.com/siya.art.homes/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/profile.php?id=61585639255230" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://wa.me/919505949445" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div>
                     <h3 class="footer-heading">Quick Links</h3>
                     <ul style="list-style: none;">
-                        <li style="margin-bottom: 10px;"><a href="#book" style="color: #ccc; text-decoration: none;">Book Consultation</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#services" style="color: #ccc; text-decoration: none;">Our Services</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#gallery" style="color: #ccc; text-decoration: none;">Portfolio</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#contact" style="color: #ccc; text-decoration: none;">Contact</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#book" style="color: #ccc; text-decoration: none;">Book Consultation</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#services" style="color: #ccc; text-decoration: none;">Our Services</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#gallery" style="color: #ccc; text-decoration: none;">Portfolio</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#contact" style="color: #ccc; text-decoration: none;">Contact</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="footer-heading">Contact Info</h3>
                     <p><i class="fas fa-phone-alt" style="margin-right:10px;"></i> <strong>95059 49445</strong></p>
-                    <p><i class="fas fa-envelope" style="margin-right:10px;"></i> siyaarthomes@gmail.com</p>
+                    <p><i class="fas fa-envelope" style="margin-right:10px;"></i> arthomesliving09@gmail.com</p>
                     <p><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> Doorstep Service Across City</p>
-                    <p><i class="fas fa-clock" style="margin-right:10px;"></i> Mon-Sun: 9:00 AM - 8:00 PM</p>
+                    <p><i class="fas fa-clock" style="margin-right:10px;"></i> Mon-Sun: 10:00 AM - 8:00 PM</p>
                 </div>
             </div>
             <div class="copyright">
@@ -610,8 +829,60 @@
         </div>
     </footer>
 
-    <!-- Form Submission Script (WhatsApp + Email) -->
     <script>
+        // Variables for header behavior
+        let lastScrollTop = 0;
+        const header = document.getElementById('mainHeader');
+        const showHeaderBtn = document.getElementById('showHeaderBtn');
+        let isHeaderHidden = false;
+        
+        // Hide/show header on scroll
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Hide header when scrolling down
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('hidden');
+                isHeaderHidden = true;
+                
+                // Show the "show header" button after a delay
+                setTimeout(() => {
+                    if (isHeaderHidden) {
+                        showHeaderBtn.classList.add('visible');
+                    }
+                }, 300);
+            } 
+            // Show header when scrolling up
+            else if (scrollTop < lastScrollTop) {
+                header.classList.remove('hidden');
+                showHeaderBtn.classList.remove('visible');
+                isHeaderHidden = false;
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // Show header when button is clicked
+        showHeaderBtn.addEventListener('click', function() {
+            header.classList.remove('hidden');
+            showHeaderBtn.classList.remove('visible');
+            isHeaderHidden = false;
+            
+            // Scroll to top smoothly
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Hide show-header button when mouse is near top
+        document.addEventListener('mousemove', function(e) {
+            if (e.clientY < 50 && isHeaderHidden) {
+                showHeaderBtn.classList.add('visible');
+            }
+        });
+        
+        // Form submission
         document.getElementById('consultationForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -638,7 +909,7 @@
             const whatsappUrl = `https://wa.me/919505949445?text=${formattedMessage}`;
             window.open(whatsappUrl, '_blank');
 
-            // 2. Prepare email link as a backup (user can choose to send)
+            // 2. Prepare email link as a backup
             const emailSubject = `New Consultation Request from ${name}`;
             const emailBody = formattedMessage.replace(/%0A/g, '\n').replace(/\*/g, '');
             const mailtoLink = `mailto:siyaarthomes@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
@@ -650,12 +921,9 @@
                 }
             }, 1000);
 
-            // 3. (Optional) Here you could add code to submit form data to your own server/backend
-            // For example, using fetch() to a Google Apps Script or Form backend.
-
-            // Simple confirmation for the user
+            // Confirmation for the user
             alert("Thank you, " + name + "! Your consultation request has been submitted. Our team will contact you shortly on " + phone + ".");
-            this.reset(); // Reset the form
+            this.reset();
         });
     </script>
 </body>
